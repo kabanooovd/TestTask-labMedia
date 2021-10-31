@@ -43,8 +43,8 @@ export const MyTable = () => {
             <div>
                 <Table dataSource={users}
                        columns={columns}
+                       pagination={{ pageSize: 5 }}
                 >
-
                 </Table>
             </div>
         </div>
