@@ -1,0 +1,8 @@
+.headerWrapper {
+    border: 1px solid blue;
+    width: 100%;
+}
+
+.header {
+    margin-left: 50px;
+}

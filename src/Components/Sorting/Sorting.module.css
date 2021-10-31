@@ -1,0 +1,17 @@
+.SortingWrapper {
+    width: 100%;
+    border: 1px solid red;
+    height: 50px;
+    display: flex;
+    align-items: flex-end;
+}
+
+.sortingContainer {
+    margin-left: 40px;
+}
+
+.sortingStyles {
+    cursor: pointer;
+    padding: 0 10px 0 10px;
+    border-bottom: 1px dashed black;
+}
