@@ -2,20 +2,19 @@ import React, {useEffect, useState} from "react";
 import TableStyles from './TableComponent.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {MainApplicationType} from "../../bll/store";
-import {ReceivedData_T} from "../../dal/dataAPI";
-import {removeUser, setReceivedDAta} from "../../bll/users-reducer";
+import {changeModalFlagMode, setReceivedDAta, UsersState_T} from "../../bll/users-reducer";
 import {getFormatDate} from "../../utils/helpers";
 import {Paginator} from "../commonComponents/Paginator/Paginator";
+import {ConfirmComponent} from "../commonComponents/ConfirmComponent/ConfirmComponent";
 
 export const TableComponent = () => {
-
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(setReceivedDAta)
     }, [dispatch])
 
-    const users = useSelector<MainApplicationType, ReceivedData_T[]>(state => state.users)
+    const users = useSelector<MainApplicationType, UsersState_T>(state => state.users)
     const [currentPage, setCurrentPage] = useState<number>(1)
     const usersPerPage: number = 5
 
@@ -23,9 +22,13 @@ export const TableComponent = () => {
     const firstUserIndex = lastUserIndex - usersPerPage;
     const currentUserPage = users.slice(firstUserIndex, lastUserIndex)
 
-    const mappedPositions = currentUserPage.map((el) => {
+    const [rmBtnDisabledMode, setRmBtnDisabledMode] = useState(false)
 
-        const RemovePositionHandler = () => dispatch(removeUser(el.id))
+    const mappedPositions = currentUserPage.map((el) => {
+        const RemovePositionHandler = () => {
+            dispatch(changeModalFlagMode(el.id, !el.modalFlag))
+            setRmBtnDisabledMode(true)
+        }
 
         return (
             <tr key={el.id} className={TableStyles.td2}>
@@ -35,7 +38,9 @@ export const TableComponent = () => {
                     style={{width: '150px', textAlign: 'center'}}> {getFormatDate(el.registration_date)} </td>
                 <td className={TableStyles.td1} style={{textAlign: 'center'}}> {el.rating} </td>
                 <td className={TableStyles.td1}>
-                    <button onClick={RemovePositionHandler}>X</button>
+                    {/*<ConfirmComponent />*/}
+                    {el.modalFlag && <ConfirmComponent userID={el.id} setRmBtnDisabledMode={setRmBtnDisabledMode}/>}
+                    <div className={!rmBtnDisabledMode ? TableStyles.removeBtnStyles : TableStyles.disabledRemoveBtnStyles} onClick={RemovePositionHandler}>&#10006;</div>
                 </td>
             </tr>
         )

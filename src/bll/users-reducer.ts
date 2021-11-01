@@ -10,13 +10,15 @@ const SORT_LATEST_REG_USER = 'user/SORT_LATEST_REG_USER'
 const SORT_EARLIEST_REG_USER = 'user/SORT_EARLIEST_REG_USER'
 const SHOW_FOUND_USER = 'user/SHOW_FOUND_USER'
 const SHOW_FOUND_EMAIL = 'user/SHOW_FOUND_EMAIL'
+const SET_MODAL_FLAG = 'user/SET_MODAL_FLAG'
 
-const initState: ReceivedData_T[] = []
+export type UsersState_T = Array<ReceivedData_T & { modalFlag: boolean }>
+const initState: UsersState_T = []
 
-export const usersReducer = (state: ReceivedData_T[] = initState, action: UsersActionType): ReceivedData_T[] => {
+export const usersReducer = (state: UsersState_T = initState, action: UsersActionType): UsersState_T => {
     switch (action.type) {
         case SET_DATA:
-            return [...action.payload.data.map(el => ({...el, key: el.id}))]
+            return [...action.payload.data.map(el => ({...el, key: el.id, modalFlag: false}))]
         case REMOVE_USER:
             return state.filter(el => el.id !== action.userID)
         case SORT_LOWEST_RATING:
@@ -28,13 +30,19 @@ export const usersReducer = (state: ReceivedData_T[] = initState, action: UsersA
         case SORT_EARLIEST_REG_USER:
             return [...state.sort((a, b) => a.registration_date < b.registration_date ? 1 : -1)]
         case SHOW_FOUND_USER:
-            return state.filter(el => el.username.includes(action.user))
+            return state.filter(el => el.username === action.user)
         case SHOW_FOUND_EMAIL:
-            // return state.filter(el => el.email === action.email)
-            return state.filter(el => el.email.includes(action.email))
+            return state.filter(el => el.email === action.email)
+        case SET_MODAL_FLAG:
+            return state.map(el => el.id === action.userID ? {...el, modalFlag: action.modalFlag} : el)
         default: return state
     }
 }
+export type ChangeModalFlagMode_T = ReturnType<typeof changeModalFlagMode>
+export const changeModalFlagMode = (userID: string, modalFlag: boolean) => {
+    return {type: SET_MODAL_FLAG, userID, modalFlag} as const
+}
+
 export type ShowFoundEmail_T = ReturnType<typeof showFoundEmail>
 export const showFoundEmail = (email: string) => {
     return {type: SHOW_FOUND_EMAIL, email} as const
@@ -83,6 +91,7 @@ type UsersActionType = SetData_T
     | SortedByEarliestRegTime_T
     | ShowFoundUser_T
     | ShowFoundEmail_T
+    | ChangeModalFlagMode_T
 
 export const setReceivedDAta = (dispatch: Dispatch) => {
     dispatch(setLoadingMode('loading'))

@@ -9,7 +9,7 @@ export const dataAPI = {
         return instance.get<ReceivedData_T[]>(`/users`)
     }
 }
-// https://5ebbb8e5f2cfeb001697d05c.mockapi.io/users?page=1&count=5
+
 export type ReceivedData_T = {
     email: string
     id: string
@@ -18,6 +18,4 @@ export type ReceivedData_T = {
     username: string
 }
 
-// https://efim360.ru/javascript-paginacziya-silami-klienta/
-// https://www.youtube.com/watch?v=s59kRbD4Sw8
 

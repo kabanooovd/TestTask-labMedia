@@ -1,7 +1,7 @@
 .tableWrapper {
-    border: 1px solid blue;
     width: 100%;
     min-height: 20px;
+    margin-left: 40px;
 }
 
 .tableHeaders {
@@ -9,20 +9,30 @@
 }
 
 .eachHeader {
-    /*width: 250px;*/
+
 }
 
 .td1 {
-    /*text-align: center;*/
-    /*background-color: #bcbcbf;*/
-
+    position: relative;
 }
 
 .td2 {
-    background-color: #bcbcbf;
+    background-color: #e1e1e3;
     cursor: pointer;
 }
 
 .td2:hover {
     background-color: #a4a4a5;
+}
+
+.removeBtnStyles {
+    text-align: center;
+    width: 40px;
+}
+
+.disabledRemoveBtnStyles {
+    text-align: center;
+    width: 40px;
+    pointer-events: none;
+    opacity: 0.4;
 }
