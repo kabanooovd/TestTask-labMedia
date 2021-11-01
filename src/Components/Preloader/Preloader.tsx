@@ -1,8 +1,8 @@
 import React from "react";
 import PreloaderStyles from './Preloader.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {MainApplicationType} from "../bll/store";
-import {LoadingModesType} from "../bll/app-common-reducer";
+import {MainApplicationType} from "../../bll/store";
+import {LoadingModesType} from "../../bll/app-common-reducer";
 
 export const Preloader = () => {
 

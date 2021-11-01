@@ -1,0 +1,33 @@
+.paginator {
+    display: flex;
+    flex-direction: row;
+}
+
+.notSelected {
+    cursor: pointer;
+    border: 1px solid black;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.notSelected:hover {
+    opacity: 0.5;
+}
+
+.selectedPage {
+    background-color: #c7c6c6;
+    border: 1px solid black;
+    cursor: pointer;
+    font-weight: bold;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.paginationWrapper {
+    display: flex;
+}

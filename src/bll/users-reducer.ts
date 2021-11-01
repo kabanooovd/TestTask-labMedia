@@ -1,4 +1,4 @@
-import {dataAPI, ReceivedData_T} from "../../dal/dataAPI";
+import {dataAPI, ReceivedData_T} from "../dal/dataAPI";
 import {Dispatch} from "redux";
 import {setLoadingMode} from "./app-common-reducer";
 
@@ -8,6 +8,8 @@ const SORT_LOWEST_RATING = 'users/SORT_LOWEST_RATING'
 const SORT_HIGHEST_RATING = 'users/SORT_HIGHEST_RATING'
 const SORT_LATEST_REG_USER = 'user/SORT_LATEST_REG_USER'
 const SORT_EARLIEST_REG_USER = 'user/SORT_EARLIEST_REG_USER'
+const SHOW_FOUND_USER = 'user/SHOW_FOUND_USER'
+const SHOW_FOUND_EMAIL = 'user/SHOW_FOUND_EMAIL'
 
 const initState: ReceivedData_T[] = []
 
@@ -25,13 +27,29 @@ export const usersReducer = (state: ReceivedData_T[] = initState, action: UsersA
             return [...state.sort((a, b) => a.registration_date > b.registration_date ? 1 : -1)]
         case SORT_EARLIEST_REG_USER:
             return [...state.sort((a, b) => a.registration_date < b.registration_date ? 1 : -1)]
+        case SHOW_FOUND_USER:
+            return state.filter(el => el.username.includes(action.user))
+        case SHOW_FOUND_EMAIL:
+            // return state.filter(el => el.email === action.email)
+            return state.filter(el => el.email.includes(action.email))
         default: return state
     }
 }
+export type ShowFoundEmail_T = ReturnType<typeof showFoundEmail>
+export const showFoundEmail = (email: string) => {
+    return {type: SHOW_FOUND_EMAIL, email} as const
+}
+
+export type ShowFoundUser_T = ReturnType<typeof showFoundUserName>
+export const showFoundUserName = (user: string) => {
+    return {type: SHOW_FOUND_USER, user} as const
+}
+
 export type SortedByEarliestRegTime_T = ReturnType<typeof sortedByEarliestRegTime>
 export const sortedByEarliestRegTime = () => {
     return {type: SORT_EARLIEST_REG_USER} as const
 }
+
 export type SortedByLatestRegTime_T = ReturnType<typeof sortedByLatestRegTime>
 export const sortedByLatestRegTime = () => {
     return {type: SORT_LATEST_REG_USER} as const
@@ -63,6 +81,8 @@ type UsersActionType = SetData_T
     | SortedByHighestRating_T
     | SortedByLatestRegTime_T
     | SortedByEarliestRegTime_T
+    | ShowFoundUser_T
+    | ShowFoundEmail_T
 
 export const setReceivedDAta = (dispatch: Dispatch) => {
     dispatch(setLoadingMode('loading'))

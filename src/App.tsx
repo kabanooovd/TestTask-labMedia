@@ -5,15 +5,18 @@ import {Preloader} from "./Components/Preloader/Preloader";
 import {SearchInput} from "./Components/SearchInput/SearchInput";
 import {Sorting} from "./Components/Sorting/Sorting";
 import {MyTable} from "./Components/myTable/MyTable";
+import {TableComponent} from "./Components/TableComponent/TableComponent";
 
 function App() {
+
     return (
-        <div>
+        <div className={'App'}>
             <Header />
             <SearchInput />
             <Preloader />
             <Sorting />
-            <MyTable />
+            {/*<MyTable />*/}
+            <TableComponent />
         </div>
     );
 }

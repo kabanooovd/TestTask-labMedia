@@ -1,6 +1,5 @@
 .SortingWrapper {
     width: 100%;
-    border: 1px solid red;
     height: 50px;
     display: flex;
     align-items: flex-end;

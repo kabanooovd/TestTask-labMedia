@@ -6,9 +6,9 @@ import {
     sortedByHighestRating,
     sortedByLatestRegTime,
     sortedByLowestRating
-} from "../bll/users-reducer";
-import {MainApplicationType} from "../bll/store";
-import {SWITCH_RATE_FLAG} from "../bll/app-common-reducer";
+} from "../../bll/users-reducer";
+import {MainApplicationType} from "../../bll/store";
+import {SWITCH_DATE_FLAG, SWITCH_RATE_FLAG} from "../../bll/app-common-reducer";
 
 export const Sorting = () => {
 
@@ -25,14 +25,14 @@ export const Sorting = () => {
         }
     }
 
-    let sortRegTimeFlag = true
+    let sortRegTimeFlag = useSelector<MainApplicationType, boolean>(state => state.commonAppData.sortRegTimeFlag)
     const sortByRegTime = () => {
         if (sortRegTimeFlag) {
             dispatch(sortedByLatestRegTime())
-            sortRegTimeFlag = false
+            dispatch({type: SWITCH_DATE_FLAG, sortingRegValue: false})
         } else {
             dispatch(sortedByEarliestRegTime())
-            sortRegTimeFlag = true
+            dispatch({type: SWITCH_DATE_FLAG, sortingRegValue: true})
         }
     }
 

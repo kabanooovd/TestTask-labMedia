@@ -1,0 +1,28 @@
+.tableWrapper {
+    border: 1px solid blue;
+    width: 100%;
+    min-height: 20px;
+}
+
+.tableHeaders {
+    background-color: #919192;
+}
+
+.eachHeader {
+    /*width: 250px;*/
+}
+
+.td1 {
+    /*text-align: center;*/
+    /*background-color: #bcbcbf;*/
+
+}
+
+.td2 {
+    background-color: #bcbcbf;
+    cursor: pointer;
+}
+
+.td2:hover {
+    background-color: #a4a4a5;
+}
